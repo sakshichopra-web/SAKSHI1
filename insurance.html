@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insurance Services — Dhanshri Financial Solutions</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .ins-why-section { background: var(--mist); padding: 80px 5%; }
+    .ins-why-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+    .ins-why-visual {
+      background: white;
+      border: 1px solid var(--pale);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    .risk-item {
+      display:flex; align-items:center; gap:14px;
+      padding:12px 0; border-bottom:1px solid var(--frost);
+    }
+    .risk-item:last-child{border:none;}
+    .risk-icon { font-size:22px; width:38px; flex-shrink:0; }
+    .risk-text { font-size:14px; color:var(--navy); font-weight:500; flex:1; }
+    .risk-shield { font-size:18px; color:var(--green); }
+
+    /* Protection coverage bars */
+    .coverage-bars { margin-top:20px; }
+    .bar-row { margin-bottom:14px; }
+    .bar-label { display:flex; justify-content:space-between; font-size:12.5px; color:var(--blue); font-weight:600; margin-bottom:5px; }
+    .bar-track { background:var(--frost); border-radius:999px; height:8px; overflow:hidden; }
+    .bar-fill { height:100%; border-radius:999px; background:linear-gradient(90deg,var(--sky),var(--mid)); transition:width 1s ease; }
+
+    /* Stats highlight */
+    .ins-stats { background:linear-gradient(135deg,var(--navy),var(--blue)); padding:50px 5%; }
+    .ins-stats-inner { max-width:900px; margin:0 auto; display:grid; grid-template-columns:repeat(5,1fr); gap:20px; text-align:center; }
+    .ins-stat .num { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:700; color:var(--gold-lt); }
+    .ins-stat .lbl { font-size:11px; color:rgba(255,255,255,0.55); margin-top:4px; }
+
+    /* Insurance types tabs */
+    .ins-tabs { display:flex; gap:8px; margin-bottom:36px; flex-wrap:wrap; }
+    .ins-tab {
+      padding:9px 20px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:600;
+      cursor:pointer;
+      border:1.5px solid var(--pale);
+      color:var(--blue);
+      background:white;
+      transition:all 0.2s;
+    }
+    .ins-tab.active { background:var(--mid); color:white; border-color:var(--mid); }
+    .ins-tab:hover:not(.active) { background:var(--frost); }
+
+    /* Claims process */
+    .claims-section { background:var(--frost); padding:70px 5%; border-top:1px solid var(--pale); }
+    .claims-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:40px; }
+    .claim-step {
+      text-align:center;
+      position:relative;
+    }
+    .claim-step::after {
+      content:'→';
+      position:absolute; right:-12px; top:28px;
+      color:var(--pale); font-size:20px; font-weight:700;
+    }
+    .claim-step:last-child::after { display:none; }
+    .step-num {
+      width:56px; height:56px;
+      background:linear-gradient(135deg,var(--sky),var(--mid));
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      color:white; font-weight:700; font-size:20px;
+      margin:0 auto 14px;
+      font-family:'Cormorant Garamond',serif;
+    }
+    .claim-step h4 { font-size:14px; color:var(--navy); margin-bottom:6px; }
+    .claim-step p { font-size:12.5px; color:var(--slate); line-height:1.5; }
+
+    @media(max-width:900px){
+      .ins-why-grid{grid-template-columns:1fr;}
+      .ins-stats-inner{grid-template-columns:repeat(3,1fr);}
+      .claims-steps{grid-template-columns:1fr 1fr;}
+      .claim-step::after{display:none;}
+    }
+    @media(max-width:600px){
+      .ins-stats-inner{grid-template-columns:1fr 1fr;}
+      .ins-grid{grid-template-columns:1fr;}
+      .claims-steps{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-bar"><div class="ticker-inner" id="tickerInner"></div></div>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <img src="dfslogo.png" alt="DFS" onerror="this.style.display='none'">
+    <div class="brand-text">
+      <div class="name">DHANSHRI FINANCIAL</div>
+      <div class="sub">A Hub of All Financial Services</div>
+    </div>
+  </div>
+  <ul class="navbar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="investment.html">Investments</a></li>
+    <li><a href="insurance.html" class="active">Insurance</a></li>
+    <li><a href="loans.html">Loans</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html" class="navbar-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-tag">🛡️ Insurance Services · Life · Health · Motor · General</div>
+    <h1>Protect What Matters Most —<br><em style="font-style:italic;color:var(--gold-lt)">Life, Health &amp; Everything You've Built</em></h1>
+    <p>Expert insurance advisory from India's leading insurers. Never underinsured, never overpaying. 5,000+ families protected and counting.</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="ins-stats">
+  <div class="ins-stats-inner">
+    <div class="ins-stat"><div class="num">5,000+</div><div class="lbl">Families Protected</div></div>
+    <div class="ins-stat"><div class="num">₹100Cr+</div><div class="lbl">Coverage Managed</div></div>
+    <div class="ins-stat"><div class="num">3</div><div class="lbl">Core Categories</div></div>
+    <div class="ins-stat"><div class="num">24×7</div><div class="lbl">Expert Support</div></div>
+    <div class="ins-stat"><div class="num">100%</div><div class="lbl">Claim Assistance</div></div>
+  </div>
+</div>
+
+<!-- INSURANCE CARDS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-tag">Our Coverage</div>
+    <h2 class="section-heading">One Destination. Complete Protection.</h2>
+    <p class="section-sub">Three pillars of insurance coverage to protect every dimension of your financial life.</p>
+    <div class="ins-grid">
+      <!-- Life Insurance -->
+      <div class="ins-card fade-up">
+        <div class="ins-card-header">
+          <span class="icon">❤️</span>
+          <h3>Life Insurance</h3>
+        </div>
+        <div class="ins-card-body">
+          <p>Your family's financial safety net. Ensures the people who depend on you are protected, provided for, and financially stable — even in your absence.</p>
+          <ul class="ins-list">
+            <li>Term Life &amp; Pure Protection Plans</li>
+            <li>Unit Linked Insurance Plans (ULIPs)</li>
+            <li>Endowment &amp; Money Back Plans</li>
+            <li>Whole Life &amp; Retirement Plans</li>
+            <li>Child Education Plans</li>
+            <li>Group Life Insurance for Corporates</li>
+          </ul>
+          <a href="contact.html" class="card-link" style="margin-top:16px;display:inline-flex">Get Life Insurance Quote →</a>
+        </div>
+      </div>
+      <!-- Health Insurance -->
+      <div class="ins-card fade-up">
+        <div class="ins-card-header" style="background:linear-gradient(135deg,#065F46,#047857)">
+          <span class="icon">🏥</span>
+          <h3>Health Insurance</h3>
+        </div>
+        <div class="ins-card-body">
+          <p>Medical emergencies shouldn't wipe out your savings. Comprehensive health coverage for individuals, families, and senior citizens from leading insurers.</p>
+          <ul class="ins-list">
+            <li>Individual &amp; Family Floater Plans</li>
+            <li>Senior Citizen Mediclaim</li>
+            <li>Critical Illness Cover</li>
+            <li>Top-up &amp; Super Top-up Plans</li>
+            <li>Maternity Cover</li>
+            <li>Corporate Group Health Insurance</li>
+          </ul>
+          <a href="contact.html" class="card-link" style="margin-top:16px;display:inline-flex;color:#047857">Get Health Insurance Quote →</a>
+        </div>
+      </div>
+      <!-- Motor & General -->
+      <div class="ins-card fade-up">
+        <div class="ins-card-header" style="background:linear-gradient(135deg,#1E3A5F,#2563EB)">
+          <span class="icon">🚗</span>
+          <h3>Motor &amp; General</h3>
+        </div>
+        <div class="ins-card-body">
+          <p>Comprehensive protection for your vehicles, property, and assets. From third-party mandatory coverage to full comprehensive policies.</p>
+          <ul class="ins-list">
+            <li>Car &amp; Two-Wheeler Insurance</li>
+            <li>Third Party &amp; Comprehensive Cover</li>
+            <li>Commercial Vehicle Insurance</li>
+            <li>Home &amp; Property Insurance</li>
+            <li>Travel Insurance</li>
+            <li>Business &amp; Commercial Insurance</li>
+          </ul>
+          <a href="contact.html" class="card-link" style="margin-top:16px;display:inline-flex">Get Motor/General Quote →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY INSURANCE MATTERS -->
+<section class="ins-why-section">
+  <div class="ins-why-grid">
+    <div>
+      <div class="section-tag">Why It Matters</div>
+      <h2 class="section-heading">Insurance Is the Foundation of Every Strong Financial Plan</h2>
+      <p style="font-size:14.5px;color:var(--slate);line-height:1.7;margin:14px 0 20px">Most people spend years building wealth — yet without the right coverage, all that hard work can be undone in a single unexpected event.</p>
+      <div class="risk-item"><div class="risk-icon">🏠</div><div class="risk-text">Family lifestyle protected if you're no longer around</div><div class="risk-shield">✓</div></div>
+      <div class="risk-item"><div class="risk-icon">🏥</div><div class="risk-text">Hospital bills won't wipe out your savings account</div><div class="risk-shield">✓</div></div>
+      <div class="risk-item"><div class="risk-icon">🚗</div><div class="risk-text">Accidents don't leave your family in financial debt</div><div class="risk-shield">✓</div></div>
+      <div class="risk-item"><div class="risk-icon">🎓</div><div class="risk-text">Children's education goals are never compromised</div><div class="risk-shield">✓</div></div>
+      <div class="risk-item"><div class="risk-icon">🏡</div><div class="risk-text">Property and personal assets are fully covered</div><div class="risk-shield">✓</div></div>
+    </div>
+    <div class="ins-why-visual">
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:20px;letter-spacing:0.04em">COVERAGE ADEQUACY GUIDE</div>
+      <canvas id="coverageChart" height="180"></canvas>
+      <div class="coverage-bars" style="margin-top:24px">
+        <div class="bar-row">
+          <div class="bar-label"><span>Life Cover Needed</span><span>10× Annual Income</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Health Cover</span><span>₹10–25 Lakh/Family</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Critical Illness</span><span>₹25–50 Lakh</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLAIMS PROCESS -->
+<section class="claims-section">
+  <div class="section-inner" style="max-width:1000px">
+    <div style="text-align:center;margin-bottom:10px"><div class="section-tag">Claims Process</div></div>
+    <h2 class="section-heading" style="text-align:center">Hassle-Free Claim Assistance<br>at Every Step</h2>
+    <p style="text-align:center;color:var(--slate);font-size:14.5px;margin:10px auto 0;max-width:500px">We guide you through the entire claims process so you focus on recovery, not paperwork.</p>
+    <div class="claims-steps">
+      <div class="claim-step fade-up">
+        <div class="step-num">1</div>
+        <h4>Intimate the Claim</h4>
+        <p>Notify us immediately after the event via call, WhatsApp, or email — 24×7.</p>
+      </div>
+      <div class="claim-step fade-up">
+        <div class="step-num">2</div>
+        <h4>Document Support</h4>
+        <p>Our team helps you collect and submit the right documents without confusion.</p>
+      </div>
+      <div class="claim-step fade-up">
+        <div class="step-num">3</div>
+        <h4>Follow Up</h4>
+        <p>We follow up with the insurer on your behalf to ensure timely processing.</p>
+      </div>
+      <div class="claim-step fade-up">
+        <div class="step-num">4</div>
+        <h4>Settlement</h4>
+        <p>Claim gets settled directly to your account or the hospital cashlessly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Get Your Free Insurance Review</h2>
+  <p>Are you adequately covered? Let our advisors audit your existing coverage — free of charge.</p>
+  <div class="cta-btns">
+    <a href="contact.html" class="btn-gold">🛡️ Get Free Coverage Review</a>
+    <a href="investment.html" class="btn-outline">Explore Investments</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="dfslogo.png" alt="DFS" onerror="this.style.display='none'">
+      <p>DHANSHRI FINANCIAL SOLUTION PVT. LTD. — Complete Insurance Advisory from India's Leading Insurers.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">© 2024 Dhanshri Financial Solutions. All Rights Reserved.</p>
+    </div>
+    <div class="footer-col"><h4>Insurance</h4><ul>
+      <li><a href="insurance.html">Life Insurance</a></li>
+      <li><a href="insurance.html">Health Insurance</a></li>
+      <li><a href="insurance.html">Motor Insurance</a></li>
+      <li><a href="insurance.html">General Insurance</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Services</h4><ul>
+      <li><a href="investment.html">Investments</a></li>
+      <li><a href="loans.html">Loans</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>Insurance is subject to terms and conditions of the respective policies. Please read the policy document carefully.</span>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</footer>
+
+<script>
+/* TICKER */
+const marketData={'NIFTY 50':{base:22450.50},'SENSEX':{base:73900.20},'BANKNIFTY':{base:48120.00},'NIFTY IT':{base:34780.00},'INDIA VIX':{base:14.25},'GOLD':{base:71850},'SILVER':{base:85400}};
+const liveData={};
+Object.keys(marketData).forEach(k=>{const p=(Math.random()*3.2-1.6);liveData[k]={price:marketData[k].base*(1+p/100),pct:p};});
+function fmt(v,n){if(n==='INDIA VIX')return v.toFixed(2);if(n==='GOLD'||n==='SILVER')return'₹'+v.toLocaleString('en-IN',{maximumFractionDigits:0});return v.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function buildTicker(){const inner=document.getElementById('tickerInner');if(!inner)return;let h='';for(let i=0;i<2;i++)Object.keys(liveData).forEach(n=>{const d=liveData[n];const up=d.pct>=0;h+=`<div class="ticker-item"><div class="ticker-dot ${up?'up':'down'}"></div><span class="ticker-name">${n}</span><span class="ticker-price">${fmt(d.price,n)}</span><span class="ticker-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(d.pct).toFixed(2)}%</span></div>`;});inner.innerHTML=h;}
+buildTicker();
+setInterval(()=>{Object.keys(liveData).forEach(k=>{const t=(Math.random()*0.12-0.06);liveData[k].price*=(1+t/100);liveData[k].pct+=t*0.3;});buildTicker();},5000);
+
+/* COVERAGE CHART */
+const ctx = document.getElementById('coverageChart').getContext('2d');
+new Chart(ctx, {
+  type: 'radar',
+  data: {
+    labels: ['Life Cover', 'Health Cover', 'Motor Cover', 'Critical Illness', 'Property Cover'],
+    datasets: [{
+      label: 'Recommended',
+      data: [90, 85, 70, 65, 60],
+      backgroundColor: 'rgba(37,99,235,0.12)',
+      borderColor: '#2563EB',
+      borderWidth: 2,
+      pointBackgroundColor: '#2563EB',
+    }, {
+      label: 'Average Indian',
+      data: [35, 40, 55, 15, 20],
+      backgroundColor: 'rgba(201,168,76,0.1)',
+      borderColor: '#C9A84C',
+      borderWidth: 2,
+      borderDash: [5,4],
+      pointBackgroundColor: '#C9A84C',
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom', labels: { font:{size:11}, color:'#64748B', boxWidth:10 } },
+      tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.raw + '%' } }
+    },
+    scales: {
+      r: {
+        min: 0, max: 100,
+        ticks: { display: false },
+        grid: { color: 'rgba(37,99,235,0.08)' },
+        pointLabels: { font: { size: 11 }, color: '#1E3A5F' },
+        angleLines: { color: 'rgba(37,99,235,0.07)' }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
