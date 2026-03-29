@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dhanshri Financial Solutions — A Hub of All Financial Services</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* ---- HERO VISUAL EXTRA ---- */
+    .hero-visual-wrap {
+      position: relative;
+    }
+    .hero-visual-wrap .floating-badge.b1 {
+      position: absolute; top: -24px; right: -10px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+      backdrop-filter: blur(12px);
+    }
+    .hero-visual-wrap .floating-badge.b2 {
+      position: absolute; bottom: -20px; left: -10px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; gap: 8px;
+    }
+    /* ---- SERVICES SECTION ---- */
+    .services-section { background: var(--mist); }
+    /* ---- GRAPH SECTION ---- */
+    .graph-bg {
+      background: linear-gradient(135deg, #0B2447 0%, #19376D 100%);
+      padding: 80px 5%;
+    }
+    .graph-inner { max-width: 1100px; margin: 0 auto; }
+    .graph-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; flex-wrap: wrap; gap: 14px; }
+    .graph-header h2 { font-size: 2rem; color: white; }
+    .graph-header p { font-size: 13px; color: rgba(255,255,255,0.55); }
+    .chart-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 28px; }
+    .chart-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 22px 20px;
+    }
+    .chart-card .c-name { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; }
+    .chart-card .c-val  { font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; font-weight: 700; color: white; margin: 6px 0 4px; }
+    .chart-card .c-chg  { font-size: 12px; font-weight: 600; }
+    .chart-card .c-chg.up   { color: #4ADE80; }
+    .chart-card .c-chg.down { color: #F87171; }
+    canvas#bigChart { border-radius: 12px; }
+    .chart-big-wrap {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding: 28px;
+    }
+    /* ---- TESTIMONIALS ---- */
+    .testimonials { background: var(--white); padding: 80px 5%; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 44px; }
+    .testi-card {
+      background: var(--frost);
+      border: 1px solid var(--pale);
+      border-radius: 18px;
+      padding: 28px;
+    }
+    .testi-stars { color: var(--gold); font-size: 14px; margin-bottom: 12px; }
+    .testi-text { font-size: 14px; color: var(--slate); line-height: 1.7; font-style: italic; margin-bottom: 18px; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--sky), var(--mid));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 700; font-size: 15px;
+    }
+    .testi-name { font-size: 13.5px; font-weight: 600; color: var(--navy); }
+    .testi-loc  { font-size: 11.5px; color: var(--slate); }
+    @media (max-width: 900px) {
+      .testi-grid { grid-template-columns: 1fr; }
+      .chart-cards { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .chart-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ MARKET TICKER ══════════════ -->
+<div class="ticker-bar">
+  <div class="ticker-inner" id="tickerInner">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <img src="dfslogo.png" alt="DFS Logo" onerror="this.style.display='none'">
+    <div class="brand-text">
+      <div class="name">DHANSHRI FINANCIAL</div>
+      <div class="sub">A Hub of All Financial Services</div>
+    </div>
+  </div>
+  <ul class="navbar-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="investment.html">Investments</a></li>
+    <li><a href="insurance.html">Insurance</a></li>
+    <li><a href="loans.html">Loans</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html" class="navbar-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-grid">
+    <!-- Left -->
+    <div>
+      <div class="hero-badge fade-up">
+        <span>✦</span>
+        Trusted Since 30+ Years &nbsp;·&nbsp; <span>SEBI Registered</span>
+      </div>
+      <h1 class="fade-up" style="animation-delay:0.15s">
+        Your Trusted Partner<br>in <em>Wealth Creation</em><br>&amp; Financial Freedom
+      </h1>
+      <p class="hero-sub fade-up" style="animation-delay:0.25s">
+        Dhanshri Financial Solutions Pvt. Ltd. — a full-spectrum financial services company helping you grow, protect, and manage your wealth through expert investments, insurance, and loans.
+      </p>
+      <div class="hero-btns fade-up" style="animation-delay:0.35s">
+        <a href="investment.html" class="btn-primary">Start Investing →</a>
+        <a href="about.html" class="btn-outline-white">Learn About Us</a>
+      </div>
+    </div>
+    <!-- Right: Live market snapshot -->
+    <div class="hero-visual-wrap fade-up" style="animation-delay:0.4s">
+      <div class="market-card">
+        <div class="market-card-title"><span class="live-dot"></span> LIVE MARKET SNAPSHOT</div>
+        <div id="heroMarketRows">
+          <!-- filled by JS -->
+          <div class="market-row"><span class="name">NIFTY 50</span><span class="val">Loading…</span><span class="chg pos">—</span></div>
+          <div class="market-row"><span class="name">SENSEX</span><span class="val">Loading…</span><span class="chg pos">—</span></div>
+          <div class="market-row"><span class="name">BANKNIFTY</span><span class="val">—</span><span class="chg pos">—</span></div>
+          <div class="market-row"><span class="name">NIFTY IT</span><span class="val">—</span><span class="chg pos">—</span></div>
+          <div class="market-row"><span class="name">INDIA VIX</span><span class="val">—</span><span class="chg pos">—</span></div>
+          <div class="market-row"><span class="name">GOLD ₹</span><span class="val">—</span><span class="chg pos">—</span></div>
+          <div class="market-row"><span class="name">SILVER ₹</span><span class="val">—</span><span class="chg pos">—</span></div>
+        </div>
+      </div>
+      <!-- floating badges -->
+      <div class="floating-badge b1">
+        <span>🏆</span> Sub-Broker of Aditya Birla Money
+      </div>
+      <div class="floating-badge b2">
+        <span>🛡️</span> 5,000+ Families Protected
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ STATS STRIP ══════════════ -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item fade-up"><div class="stat-num">30+</div><div class="stat-label">Years of Experience</div></div>
+    <div class="stat-item fade-up"><div class="stat-num">₹100Cr+</div><div class="stat-label">Coverage Managed</div></div>
+    <div class="stat-item fade-up"><div class="stat-num">5,000+</div><div class="stat-label">Families Protected</div></div>
+    <div class="stat-item fade-up"><div class="stat-num">250+</div><div class="stat-label">Banking Partners</div></div>
+  </div>
+</div>
+
+<!-- ══════════════ SERVICES SECTION ══════════════ -->
+<section class="section services-section">
+  <div class="section-inner">
+    <div class="section-tag">Our Services</div>
+    <h2 class="section-heading">Comprehensive Financial Services<br>Under One Roof</h2>
+    <p class="section-sub">From growing your wealth to protecting your family — Dhanshri Financial Solutions covers every dimension of your financial life.</p>
+    <div class="cards-grid">
+      <a href="investment.html" class="card fade-up" style="text-decoration:none">
+        <div class="card-icon">📈</div>
+        <h3>Investment Services</h3>
+        <p>Expert advisory across Mutual Funds, SIPs, Stocks, IPOs, Derivatives, Fixed Deposits, and Bonds — tailored to your goals and risk profile.</p>
+        <div class="card-link">Explore Investments <span>→</span></div>
+      </a>
+      <a href="insurance.html" class="card fade-up" style="text-decoration:none">
+        <div class="card-icon">🛡️</div>
+        <h3>Insurance Services</h3>
+        <p>Complete protection through Life, Health, Motor, and General Insurance from India's leading insurers. Never underinsured, never overpaying.</p>
+        <div class="card-link">Explore Insurance <span>→</span></div>
+      </a>
+      <a href="loans.html" class="card fade-up" style="text-decoration:none">
+        <div class="card-icon">🏦</div>
+        <h3>Loan Services</h3>
+        <p>Home, Business, Personal, Vehicle, and Education Loans. We work with 250+ banks & NBFCs to get you the best rates with minimal paperwork.</p>
+        <div class="card-link">Explore Loans <span>→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ LIVE CHARTS SECTION ══════════════ -->
+<section class="graph-bg">
+  <div class="graph-inner">
+    <div class="graph-header">
+      <div>
+        <div class="section-tag" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);color:var(--pale)">Market Pulse</div>
+        <h2 class="section-heading" style="color:white;margin-top:10px">Live Indian Market Overview</h2>
+      </div>
+      <p style="color:rgba(255,255,255,0.5);font-size:13px;"><span class="live-dot"></span> Updates every 30 seconds</p>
+    </div>
+    <div class="chart-cards" id="chartCards">
+      <div class="chart-card"><div class="c-name">NIFTY 50</div><div class="c-val" id="cc-nifty">—</div><div class="c-chg up" id="cc-nifty-chg">—</div></div>
+      <div class="chart-card"><div class="c-name">SENSEX</div><div class="c-val" id="cc-sensex">—</div><div class="c-chg up" id="cc-sensex-chg">—</div></div>
+      <div class="chart-card"><div class="c-name">BANKNIFTY</div><div class="c-val" id="cc-bnf">—</div><div class="c-chg up" id="cc-bnf-chg">—</div></div>
+    </div>
+    <div class="chart-big-wrap">
+      <canvas id="bigChart" height="120"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WHY CHOOSE US ══════════════ -->
+<section class="why-us">
+  <div class="why-grid">
+    <div>
+      <div class="section-tag" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);color:var(--pale)">Why Us</div>
+      <h2 class="section-heading" style="color:white;margin-top:12px;margin-bottom:18px">
+        Why Thousands Trust<br>Dhanshri Financial
+      </h2>
+      <p style="color:rgba(255,255,255,0.65);font-size:14.5px;line-height:1.7;margin-bottom:28px">
+        We don't just sell financial products — we build long-term relationships grounded in transparency, expertise, and genuine care for your financial future.
+      </p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="about.html" class="btn-gold">Our Story →</a>
+        <a href="contact.html" class="btn-outline">Get Free Advice</a>
+      </div>
+    </div>
+    <div class="why-features">
+      <div class="feature-item fade-up">
+        <div class="feature-ico">🏛️</div>
+        <h4>30+ Years Experience</h4>
+        <p>Navigated bull markets, bear markets, and every economic cycle with clients' interests first.</p>
+      </div>
+      <div class="feature-item fade-up">
+        <div class="feature-ico">👤</div>
+        <h4>Customer-Centric</h4>
+        <p>Personalised financial plans crafted around your unique goals, income, and future aspirations.</p>
+      </div>
+      <div class="feature-item fade-up">
+        <div class="feature-ico">🔑</div>
+        <h4>One-Stop Destination</h4>
+        <p>Investments, insurance, loans — everything under one roof. One advisor, complete coverage.</p>
+      </div>
+      <div class="feature-item fade-up">
+        <div class="feature-ico">🔒</div>
+        <h4>Transparent & Ethical</h4>
+        <p>Full transparency in fees and commissions. You always know what you're getting into and why.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PARTNERS ══════════════ -->
+<div class="partners-wrap">
+  <div class="partners-inner">
+    <div class="partners-label">Our Trusted Banking & NBFC Partners</div>
+    <div class="partners-logos">
+      <span class="partner-pill">SBI</span>
+      <span class="partner-pill">HDFC Bank</span>
+      <span class="partner-pill">ICICI Bank</span>
+      <span class="partner-pill">Axis Bank</span>
+      <span class="partner-pill">Kotak Mahindra</span>
+      <span class="partner-pill">Bank of Baroda</span>
+      <span class="partner-pill">Bajaj Finserv</span>
+      <span class="partner-pill">Tata Capital</span>
+      <span class="partner-pill">Aditya Birla Finance</span>
+      <span class="partner-pill">L&amp;T Finance</span>
+      <span class="partner-pill">IIFL Finance</span>
+      <span class="partner-pill">Muthoot Finance</span>
+      <span class="partner-pill">PNB Housing</span>
+      <span class="partner-pill">LIC Housing</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ TESTIMONIALS ══════════════ -->
+<section class="testimonials">
+  <div class="section-inner">
+    <div class="section-tag">Client Stories</div>
+    <h2 class="section-heading">What Our Clients Say</h2>
+    <div class="testi-grid">
+      <div class="testi-card fade-up">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Dhanshri helped me start my SIP journey 5 years ago. The personalised guidance and transparent advice has been exceptional. My portfolio has grown beyond expectations."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div><div class="testi-name">Rajesh Patel</div><div class="testi-loc">Ahmedabad, Gujarat</div></div>
+        </div>
+      </div>
+      <div class="testi-card fade-up">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Getting my home loan sanctioned was seamless. They compared rates across multiple banks and got me the best deal. Saved lakhs in interest over the tenure."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div><div class="testi-name">Priya Mehta</div><div class="testi-loc">Surat, Gujarat</div></div>
+        </div>
+      </div>
+      <div class="testi-card fade-up">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The insurance team made sure my family has the right coverage. When I had a health emergency, the claim assistance was incredibly fast. Truly a one-stop financial family."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div><div class="testi-name">Amita Shah</div><div class="testi-loc">Vadodara, Gujarat</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA ══════════════ -->
+<section class="cta-section">
+  <h2>Start Your Financial Journey Today</h2>
+  <p>Book a free consultation with our expert advisors. No commitment, just honest guidance.</p>
+  <div class="cta-btns">
+    <a href="contact.html" class="btn-gold">📞 Book Free Consultation</a>
+    <a href="investment.html" class="btn-outline">Explore Investments</a>
+  </div>
+</section>
+
+<!-- ══════════════ CONTACT STRIP ══════════════ -->
+<div class="contact-strip">
+  <div class="contact-inner">
+    <div class="contact-item"><span class="ico">📞</span> +91 XXXXX XXXXX</div>
+    <div class="contact-item"><span class="ico">📧</span> info@dhanshrifinancial.com</div>
+    <div class="contact-item"><span class="ico">📍</span> Ahmedabad, Gujarat</div>
+    <div class="contact-item"><span class="ico">💬</span> WhatsApp Us</div>
+  </div>
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="dfslogo.png" alt="DFS" onerror="this.style.display='none'">
+      <p>DHANSHRI FINANCIAL SOLUTION PVT. LTD.<br>A Hub of All Financial Services. Sub-Broker of Aditya Birla Money Ltd. SEBI Registered.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">© 2024 Dhanshri Financial Solutions. All Rights Reserved.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="investment.html">Investments</a></li>
+        <li><a href="investment.html">Stock Broking</a></li>
+        <li><a href="investment.html">Mutual Funds</a></li>
+        <li><a href="insurance.html">Insurance</a></li>
+        <li><a href="loans.html">Loans</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Loans</h4>
+      <ul>
+        <li><a href="loans.html">Home Loan</a></li>
+        <li><a href="loans.html">Business Loan</a></li>
+        <li><a href="loans.html">Personal Loan</a></li>
+        <li><a href="loans.html">Vehicle Loan</a></li>
+        <li><a href="loans.html">Education Loan</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Disclaimer</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Mutual Fund investments are subject to market risks. Read all scheme related documents carefully.</span>
+    <a href="contact.html">Contact Us →</a>
+  </div>
+</footer>
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script>
+/* ---- MARKET DATA ---- */
+const marketData = {
+  'NIFTY 50':   { base: 22450.50, sym: '^NSEI' },
+  'SENSEX':     { base: 73900.20, sym: '^BSESN' },
+  'BANKNIFTY':  { base: 48120.00, sym: '^NSEBANK' },
+  'NIFTY IT':   { base: 34780.00, sym: '^CNXIT' },
+  'INDIA VIX':  { base: 14.25, sym: '^INDIAVIX' },
+  'GOLD':       { base: 71850, sym: 'GC=F' },
+  'SILVER':     { base: 85400, sym: 'SI=F' },
+};
+
+// Simulated live data with realistic fluctuations
+const liveData = {};
+const dailyChangePct = {};
+
+Object.keys(marketData).forEach(k => {
+  const pct = (Math.random() * 3.2 - 1.6);
+  dailyChangePct[k] = pct;
+  liveData[k] = { price: marketData[k].base * (1 + pct/100), pct };
+});
+
+function fmt(v, name) {
+  if (name === 'INDIA VIX') return v.toFixed(2);
+  if (name === 'GOLD') return '₹' + v.toLocaleString('en-IN', {maximumFractionDigits:0});
+  if (name === 'SILVER') return '₹' + v.toLocaleString('en-IN', {maximumFractionDigits:0});
+  return v.toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+function buildTicker() {
+  const inner = document.getElementById('tickerInner');
+  if (!inner) return;
+  let html = '';
+  for (let i = 0; i < 2; i++) { // duplicate for seamless loop
+    Object.keys(liveData).forEach(name => {
+      const d = liveData[name];
+      const up = d.pct >= 0;
+      html += `<div class="ticker-item">
+        <div class="ticker-dot ${up ? 'up' : 'down'}"></div>
+        <span class="ticker-name">${name}</span>
+        <span class="ticker-price">${fmt(d.price, name)}</span>
+        <span class="ticker-change ${up ? 'up' : 'down'}">${up ? '▲' : '▼'} ${Math.abs(d.pct).toFixed(2)}%</span>
+      </div>`;
+    });
+  }
+  inner.innerHTML = html;
+}
+
+function buildHeroRows() {
+  const wrap = document.getElementById('heroMarketRows');
+  if (!wrap) return;
+  let html = '';
+  Object.keys(liveData).forEach(name => {
+    const d = liveData[name];
+    const up = d.pct >= 0;
+    html += `<div class="market-row">
+      <span class="name">${name}</span>
+      <span class="val">${fmt(d.price, name)}</span>
+      <span class="chg ${up ? 'pos' : 'neg'}">${up ? '▲' : '▼'} ${Math.abs(d.pct).toFixed(2)}%</span>
+    </div>`;
+  });
+  wrap.innerHTML = html;
+}
+
+function updateChartCards() {
+  const sets = [
+    { id:'cc-nifty', chgId:'cc-nifty-chg', name:'NIFTY 50' },
+    { id:'cc-sensex', chgId:'cc-sensex-chg', name:'SENSEX' },
+    { id:'cc-bnf', chgId:'cc-bnf-chg', name:'BANKNIFTY' }
+  ];
+  sets.forEach(({id, chgId, name}) => {
+    const d = liveData[name];
+    if (!d) return;
+    const el = document.getElementById(id);
+    const chgEl = document.getElementById(chgId);
+    if (el) el.textContent = fmt(d.price, name);
+    if (chgEl) {
+      const up = d.pct >= 0;
+      chgEl.textContent = `${up ? '▲' : '▼'} ${Math.abs(d.pct).toFixed(2)}%`;
+      chgEl.className = `c-chg ${up ? 'up' : 'down'}`;
+    }
+  });
+}
+
+// Simulate small tick changes
+function tickUpdate() {
+  Object.keys(liveData).forEach(k => {
+    const tick = (Math.random() * 0.12 - 0.06); // ±0.06% tick
+    liveData[k].price *= (1 + tick/100);
+    liveData[k].pct += tick * 0.3;
+  });
+  buildTicker();
+  buildHeroRows();
+  updateChartCards();
+  updateChart();
+}
+
+// NIFTY 50 historical-like chart (simulated intraday)
+let chartLabels = [];
+let chartData = [];
+const startPrice = marketData['NIFTY 50'].base;
+let chartChart = null;
+
+function generateChartData() {
+  chartLabels = [];
+  chartData = [];
+  let p = startPrice * 0.992;
+  const open = new Date(); open.setHours(9,15,0);
+  for (let i = 0; i <= 75; i++) {
+    const t = new Date(open.getTime() + i * 5 * 60000);
+    chartLabels.push(t.getHours() + ':' + String(t.getMinutes()).padStart(2,'0'));
+    p += (Math.random() * 80 - 32);
+    chartData.push(parseFloat(p.toFixed(2)));
+  }
+  // make the last point match live
+  chartData[chartData.length-1] = liveData['NIFTY 50'].price;
+}
+
+function buildChart() {
+  generateChartData();
+  const ctx = document.getElementById('bigChart');
+  if (!ctx) return;
+  const isUp = liveData['NIFTY 50'].pct >= 0;
+  const color = isUp ? '#4ADE80' : '#F87171';
+  const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+  gradient.addColorStop(0, isUp ? 'rgba(74,222,128,0.25)' : 'rgba(248,113,113,0.25)');
+  gradient.addColorStop(1, 'rgba(0,0,0,0)');
+  chartChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: chartLabels,
+      datasets: [{
+        label: 'NIFTY 50',
+        data: chartData,
+        borderColor: color,
+        backgroundColor: gradient,
+        borderWidth: 2,
+        tension: 0.45,
+        fill: true,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          backgroundColor: 'rgba(11,36,71,0.95)',
+          titleColor: 'rgba(255,255,255,0.7)',
+          bodyColor: '#fff',
+          padding: 10,
+          callbacks: { label: ctx => ' ' + ctx.parsed.y.toLocaleString('en-IN', {minimumFractionDigits:2}) }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: { color: 'rgba(255,255,255,0.4)', maxTicksLimit: 8, font: { size: 11 } },
+          border: { color: 'rgba(255,255,255,0.06)' }
+        },
+        y: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 11 }, callback: v => v.toLocaleString('en-IN') },
+          border: { color: 'rgba(255,255,255,0.06)' }
+        }
+      }
+    }
+  });
+}
+
+function updateChart() {
+  if (!chartChart) return;
+  const last = liveData['NIFTY 50'].price;
+  chartChart.data.datasets[0].data[chartChart.data.datasets[0].data.length-1] = last;
+  chartChart.update('none');
+}
+
+// Init
+buildTicker();
+buildHeroRows();
+updateChartCards();
+buildChart();
+setInterval(tickUpdate, 5000);
+</script>
+</body>
+</html>
