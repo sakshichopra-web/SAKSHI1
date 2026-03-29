@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Dhanshri Financial Solutions</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-hero-extra { margin-top:28px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .che { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:18px; text-align:center; }
+    .che .ico { font-size:26px; margin-bottom:8px; }
+    .che .t { font-size:14px; font-weight:600; color:white; }
+    .che .s { font-size:12px; color:rgba(255,255,255,0.55); margin-top:3px; }
+
+    /* Contact form section */
+    .contact-main { background:var(--mist); padding:80px 5%; }
+    .contact-grid { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:1fr 1.4fr; gap:50px; align-items:start; }
+
+    .contact-info h3 { font-size:1.5rem; color:var(--navy); margin-bottom:16px; }
+    .contact-info p { font-size:14.5px; color:var(--slate); line-height:1.7; margin-bottom:24px; }
+    .info-items { display:flex; flex-direction:column; gap:14px; }
+    .info-item {
+      display:flex; gap:14px; align-items:flex-start;
+      background:white; border:1px solid var(--pale); border-radius:12px; padding:16px;
+      transition:all 0.2s;
+    }
+    .info-item:hover { box-shadow:var(--shadow-sm); }
+    .info-item .ico { font-size:22px; flex-shrink:0; margin-top:1px; }
+    .info-item .label { font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--slate); margin-bottom:3px; font-weight:600; }
+    .info-item .val { font-size:14.5px; font-weight:600; color:var(--navy); }
+
+    /* Enquiry form */
+    .enquiry-form {
+      background:white; border:1px solid var(--pale); border-radius:var(--radius-lg);
+      padding:40px; box-shadow:var(--shadow);
+    }
+    .enquiry-form h3 { font-size:1.5rem; color:var(--navy); margin-bottom:6px; }
+    .enquiry-form p { font-size:13.5px; color:var(--slate); margin-bottom:28px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .form-group { margin-bottom:18px; }
+    .form-group label { display:block; font-size:12.5px; font-weight:600; color:var(--blue); margin-bottom:6px; letter-spacing:0.03em; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width:100%; padding:11px 14px; border:1.5px solid var(--pale); border-radius:9px;
+      font-family:'DM Sans',sans-serif; font-size:14px; color:var(--navy);
+      background:var(--frost); transition:all 0.2s; outline:none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color:var(--sky); background:white; box-shadow:0 0 0 3px rgba(59,130,246,0.08);
+    }
+    .form-group textarea { height:100px; resize:vertical; }
+    .submit-btn {
+      width:100%; padding:14px; background:var(--mid); color:white;
+      border:none; border-radius:10px; font-size:15px; font-weight:600;
+      cursor:pointer; transition:all 0.2s; font-family:'DM Sans',sans-serif;
+    }
+    .submit-btn:hover { background:var(--blue); transform:translateY(-1px); box-shadow:0 6px 20px rgba(37,99,235,0.3); }
+
+    /* Services selector */
+    .service-chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+    .service-chip {
+      padding:7px 14px; border-radius:999px; font-size:12.5px; font-weight:600;
+      cursor:pointer; border:1.5px solid var(--pale); color:var(--blue);
+      background:white; transition:all 0.2s; user-select:none;
+    }
+    .service-chip.selected { background:var(--mid); color:white; border-color:var(--mid); }
+    .service-chip:hover:not(.selected) { background:var(--frost); }
+
+    .success-msg {
+      display:none; background:#DCFCE7; border:1px solid #86EFAC; border-radius:10px;
+      padding:16px; text-align:center; color:#166534; font-size:14px; font-weight:500; margin-top:14px;
+    }
+
+    @media(max-width:900px){ .contact-grid{grid-template-columns:1fr;} .form-row{grid-template-columns:1fr;} .contact-hero-extra{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-bar"><div class="ticker-inner" id="tickerInner"></div></div>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <img src="dfslogo.png" alt="DFS" onerror="this.style.display='none'">
+    <div class="brand-text">
+      <div class="name">DHANSHRI FINANCIAL</div>
+      <div class="sub">A Hub of All Financial Services</div>
+    </div>
+  </div>
+  <ul class="navbar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="investment.html">Investments</a></li>
+    <li><a href="insurance.html">Insurance</a></li>
+    <li><a href="loans.html">Loans</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html" class="navbar-cta active">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero" style="padding-bottom:90px">
+  <div class="page-hero-inner" style="max-width:700px">
+    <div class="page-hero-tag">📞 Contact · Free Advisory · 24×7 Support</div>
+    <h1>Let's Talk About<br>Your Financial Goals</h1>
+    <p>Book a free consultation with our expert advisors. No commitment, no charges — just honest, personalised guidance for your financial journey.</p>
+    <div class="contact-hero-extra">
+      <div class="che"><div class="ico">📞</div><div class="t">Call Us</div><div class="s">Mon–Sat, 9am–7pm</div></div>
+      <div class="che"><div class="ico">💬</div><div class="t">WhatsApp</div><div class="s">Quick Response</div></div>
+      <div class="che"><div class="ico">📧</div><div class="t">Email Us</div><div class="s">Reply within 4hrs</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT MAIN -->
+<section class="contact-main">
+  <div class="contact-grid">
+    <!-- Info -->
+    <div class="contact-info">
+      <h3>Get in Touch</h3>
+      <p>Our team of financial experts is ready to help you make the best decisions for your financial future. All consultations are completely free of charge.</p>
+      <div class="info-items">
+        <div class="info-item">
+          <div class="ico">📞</div>
+          <div><div class="label">Phone</div><div class="val">+91 XXXXX XXXXX</div></div>
+        </div>
+        <div class="info-item">
+          <div class="ico">💬</div>
+          <div><div class="label">WhatsApp</div><div class="val">+91 XXXXX XXXXX</div></div>
+        </div>
+        <div class="info-item">
+          <div class="ico">📧</div>
+          <div><div class="label">Email</div><div class="val">info@dhanshrifinancial.com</div></div>
+        </div>
+        <div class="info-item">
+          <div class="ico">📍</div>
+          <div><div class="label">Office</div><div class="val">Ahmedabad, Gujarat, India</div></div>
+        </div>
+        <div class="info-item">
+          <div class="ico">⏰</div>
+          <div><div class="label">Office Hours</div><div class="val">Mon–Sat: 9:00 AM – 7:00 PM</div></div>
+        </div>
+      </div>
+      <!-- Quick links -->
+      <div style="margin-top:28px">
+        <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:14px">Quick Service Links</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a href="investment.html" style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--mid);font-weight:500">📈 Investment &amp; Stock Broking →</a>
+          <a href="investment.html" style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--mid);font-weight:500">💼 SIP &amp; Mutual Fund Advisory →</a>
+          <a href="insurance.html" style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--mid);font-weight:500">🛡️ Insurance Planning →</a>
+          <a href="loans.html" style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--mid);font-weight:500">🏦 Loan Services →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="enquiry-form">
+      <h3>Book Free Consultation</h3>
+      <p>Fill in the details below and our advisor will contact you within 24 hours.</p>
+
+      <div style="margin-bottom:20px">
+        <div style="font-size:12.5px;font-weight:600;color:var(--blue);margin-bottom:10px;letter-spacing:0.03em">I AM INTERESTED IN</div>
+        <div class="service-chips">
+          <div class="service-chip selected" onclick="this.classList.toggle('selected')">📈 Investments</div>
+          <div class="service-chip" onclick="this.classList.toggle('selected')">💼 Mutual Funds</div>
+          <div class="service-chip" onclick="this.classList.toggle('selected')">🛡️ Insurance</div>
+          <div class="service-chip" onclick="this.classList.toggle('selected')">🏠 Home Loan</div>
+          <div class="service-chip" onclick="this.classList.toggle('selected')">💼 Business Loan</div>
+          <div class="service-chip" onclick="this.classList.toggle('selected')">👤 Personal Loan</div>
+          <div class="service-chip" onclick="this.classList.toggle('selected')">🎓 Education Loan</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" placeholder="Your full name" id="f-name">
+        </div>
+        <div class="form-group">
+          <label>Mobile Number *</label>
+          <input type="tel" placeholder="+91 XXXXX XXXXX" id="f-phone">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@example.com" id="f-email">
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" placeholder="Your city" id="f-city">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Preferred Time for Call</label>
+        <select id="f-time">
+          <option>9:00 AM – 12:00 PM</option>
+          <option>12:00 PM – 3:00 PM</option>
+          <option>3:00 PM – 6:00 PM</option>
+          <option>6:00 PM – 8:00 PM</option>
+          <option>Anytime</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your Message / Query (Optional)</label>
+        <textarea placeholder="Tell us about your financial goals, existing investments, or any specific questions…" id="f-msg"></textarea>
+      </div>
+      <button class="submit-btn" onclick="submitForm()">📞 Request Free Consultation</button>
+      <div class="success-msg" id="success-msg">
+        ✅ Thank you! Our advisor will contact you within 24 hours. We look forward to helping you achieve your financial goals!
+      </div>
+      <p style="font-size:11px;color:var(--slate);text-align:center;margin-top:12px">
+        Your information is completely confidential and will only be used to contact you about financial services.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Your Financial Future Starts Here</h2>
+  <p>Over 5,000 families trust Dhanshri Financial. Join them today — it costs nothing to start.</p>
+  <div class="cta-btns">
+    <a href="investment.html" class="btn-gold">📈 Start Investing</a>
+    <a href="loans.html" class="btn-outline">Calculate Your EMI</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="dfslogo.png" alt="DFS" onerror="this.style.display='none'">
+      <p>DHANSHRI FINANCIAL SOLUTION PVT. LTD. — A Hub of All Financial Services. Ahmedabad, Gujarat.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">© 2024 Dhanshri Financial Solutions. All Rights Reserved.</p>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul>
+      <li><a href="investment.html">Investments</a></li>
+      <li><a href="insurance.html">Insurance</a></li>
+      <li><a href="loans.html">Loans</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Disclaimer</a></li>
+      <li><a href="#">SEBI Registration</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>Mutual Fund investments are subject to market risks. Loan approval subject to lender terms.</span>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</footer>
+
+<script>
+/* TICKER */
+const marketData={'NIFTY 50':{base:22450.50},'SENSEX':{base:73900.20},'BANKNIFTY':{base:48120.00},'NIFTY IT':{base:34780.00},'INDIA VIX':{base:14.25},'GOLD':{base:71850},'SILVER':{base:85400}};
+const liveData={};
+Object.keys(marketData).forEach(k=>{const p=(Math.random()*3.2-1.6);liveData[k]={price:marketData[k].base*(1+p/100),pct:p};});
+function fmt(v,n){if(n==='INDIA VIX')return v.toFixed(2);if(n==='GOLD'||n==='SILVER')return'₹'+v.toLocaleString('en-IN',{maximumFractionDigits:0});return v.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function buildTicker(){const inner=document.getElementById('tickerInner');if(!inner)return;let h='';for(let i=0;i<2;i++)Object.keys(liveData).forEach(n=>{const d=liveData[n];const up=d.pct>=0;h+=`<div class="ticker-item"><div class="ticker-dot ${up?'up':'down'}"></div><span class="ticker-name">${n}</span><span class="ticker-price">${fmt(d.price,n)}</span><span class="ticker-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(d.pct).toFixed(2)}%</span></div>`;});inner.innerHTML=h;}
+buildTicker();
+setInterval(()=>{Object.keys(liveData).forEach(k=>{const t=(Math.random()*0.12-0.06);liveData[k].price*=(1+t/100);liveData[k].pct+=t*0.3;});buildTicker();},5000);
+
+function submitForm(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  if(!name||!phone){alert('Please fill in your name and mobile number.');return;}
+  document.getElementById('success-msg').style.display='block';
+  document.querySelector('.submit-btn').textContent='✅ Request Submitted!';
+  document.querySelector('.submit-btn').style.background='#16A34A';
+  document.querySelector('.submit-btn').disabled=true;
+}
+</script>
+</body>
+</html>
