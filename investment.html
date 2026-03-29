@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investment Services — Dhanshri Financial Solutions</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .sip-section { background: var(--mist); }
+    .sip-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+    .sip-left h3 { font-size:1.7rem; color:var(--navy); margin-bottom:12px; }
+    .sip-left p { font-size:14.5px; color:var(--slate); line-height:1.7; margin-bottom:20px; }
+    .sip-benefit {
+      display:flex; gap:12px; align-items:flex-start;
+      padding:14px 0; border-bottom:1px solid var(--pale);
+    }
+    .sip-benefit:last-child { border:none; }
+    .sip-benefit .b-ico { font-size:22px; flex-shrink:0; }
+    .sip-benefit .b-text h4 { font-size:14px; font-weight:600; color:var(--navy); margin-bottom:3px; }
+    .sip-benefit .b-text p { font-size:13px; color:var(--slate); }
+
+    /* SIP Calc */
+    .sip-calc-card {
+      background:white;
+      border:1px solid var(--pale);
+      border-radius:var(--radius-lg);
+      padding:36px;
+      box-shadow:var(--shadow);
+    }
+    .sip-calc-card h3 { font-size:1.4rem; color:var(--navy); margin-bottom:24px; text-align:center; }
+    .sip-result {
+      background:linear-gradient(135deg,var(--navy),var(--blue));
+      border-radius:14px;
+      padding:24px;
+      margin-top:20px;
+      text-align:center;
+    }
+    .sip-result .big { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:700; color:var(--gold-lt); }
+    .sip-result .lbl { font-size:12px; color:rgba(255,255,255,0.6); margin-top:2px; }
+    .sip-breakdown { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px; }
+    .sip-breakdown .item { text-align:center; }
+    .sip-breakdown .val { font-size:15px; font-weight:600; color:white; }
+    .sip-breakdown .lbl2 { font-size:11px; color:rgba(255,255,255,0.5); }
+
+    /* Aditya Birla section */
+    .ab-section { background:linear-gradient(135deg,#0B2447,#1A4090); padding:70px 5%; }
+    .ab-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+    .ab-badges { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:28px; }
+    .ab-badge {
+      background:rgba(255,255,255,0.07);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:12px;
+      padding:16px;
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .ab-badge .ab-ico { font-size:20px; flex-shrink:0; }
+    .ab-badge .ab-text { font-size:12.5px; font-weight:500; color:rgba(255,255,255,0.75); line-height:1.5; }
+    .product-strip {
+      background:var(--frost);
+      border:1px solid var(--pale);
+      border-radius:14px;
+      padding:28px;
+    }
+    .product-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--pale); }
+    .product-item:last-child { border:none; }
+    .product-item .p-ico { font-size:18px; width:32px; flex-shrink:0; }
+    .product-item .p-name { font-size:14px; font-weight:600; color:var(--navy); }
+    .product-item .p-desc { font-size:12.5px; color:var(--slate); }
+    .product-item .p-tag {
+      margin-left:auto;
+      background:var(--pale);
+      color:var(--mid);
+      font-size:10.5px;
+      font-weight:600;
+      padding:2px 8px;
+      border-radius:999px;
+    }
+
+    @media(max-width:900px){
+      .sip-grid{grid-template-columns:1fr;}
+      .ab-inner{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-bar"><div class="ticker-inner" id="tickerInner"></div></div>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <img src="dfslogo.png" alt="DFS" onerror="this.style.display='none'">
+    <div class="brand-text">
+      <div class="name">DHANSHRI FINANCIAL</div>
+      <div class="sub">A Hub of All Financial Services</div>
+    </div>
+  </div>
+  <ul class="navbar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="investment.html" class="active">Investments</a></li>
+    <li><a href="insurance.html">Insurance</a></li>
+    <li><a href="loans.html">Loans</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html" class="navbar-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-tag">📈 Investment Services · Sub-Broker of Aditya Birla Money Ltd.</div>
+    <h1>Your Trusted Partner<br>in <em style="font-style:italic;color:var(--gold-lt)">Wealth Creation</em></h1>
+    <p>SEBI-registered, transparent, and personalised investment advisory — helping you build, grow, and protect your wealth across Stocks, Mutual Funds, IPOs, and more.</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">SEBI</div><div class="stat-label">Registered & Regulated</div></div>
+    <div class="stat-item"><div class="stat-num">7+</div><div class="stat-label">Investment Products</div></div>
+    <div class="stat-item"><div class="stat-num">BSE+NSE</div><div class="stat-label">Exchange Access</div></div>
+    <div class="stat-item"><div class="stat-num">24×7</div><div class="stat-label">Research & Support</div></div>
+  </div>
+</div>
+
+<!-- INVESTMENT SERVICES -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-tag">What We Offer</div>
+    <h2 class="section-heading">Investment Products &amp; Services</h2>
+    <p class="section-sub">A complete range of financial instruments tailored to every investor — from beginners to seasoned traders.</p>
+    <div class="inv-services-grid">
+      <div class="inv-card fade-up">
+        <div class="ico">📊</div>
+        <h3>Stock Broking</h3>
+        <p>Trade in equities on BSE and NSE with research-backed recommendations and real-time market insights for confident, informed decisions.</p>
+      </div>
+      <div class="inv-card fade-up">
+        <div class="ico">⚡</div>
+        <h3>Derivatives Trading</h3>
+        <p>Trade Futures & Options (F&O) with expert guidance on risk management strategies and smart leverage of market opportunities.</p>
+      </div>
+      <div class="inv-card fade-up">
+        <div class="ico">💼</div>
+        <h3>Mutual Funds</h3>
+        <p>Curated MF schemes for your risk appetite — SIP, lump sum, ELSS, debt, or hybrid funds. Systematic wealth building made simple.</p>
+      </div>
+      <div class="inv-card fade-up">
+        <div class="ico">🚀</div>
+        <h3>IPO Services</h3>
+        <p>Never miss a promising IPO. Seamless application process with expert guidance on evaluating companies before investing.</p>
+      </div>
+      <div class="inv-card fade-up">
+        <div class="ico">📋</div>
+        <h3>Portfolio Management</h3>
+        <p>Expert advice on building, balancing, and growing your investment portfolio based on your goals, risk profile, and investment horizon.</p>
+      </div>
+      <div class="inv-card fade-up">
+        <div class="ico">🪙</div>
+        <h3>Bonds &amp; Fixed Income</h3>
+        <p>Government securities, corporate bonds, NCD, and fixed income instruments for stable, predictable returns with capital protection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIP CALCULATOR -->
+<section class="section sip-section">
+  <div class="section-inner">
+    <div class="sip-grid">
+      <div class="sip-left">
+        <div class="section-tag">SIP Calculator</div>
+        <h3>See the Power of<br>Systematic Investing</h3>
+        <p>Small, consistent investments over time create extraordinary wealth. SIP harnesses the power of compounding and rupee cost averaging.</p>
+        <div class="sip-benefit">
+          <div class="b-ico">📅</div>
+          <div class="b-text"><h4>Disciplined Investing</h4><p>Invest a fixed amount every month and remove emotions from investing decisions.</p></div>
+        </div>
+        <div class="sip-benefit">
+          <div class="b-ico">📉</div>
+          <div class="b-text"><h4>Rupee Cost Averaging</h4><p>Buy more units when markets are low, fewer when high — automatically averaging your cost.</p></div>
+        </div>
+        <div class="sip-benefit">
+          <div class="b-ico">🌱</div>
+          <div class="b-text"><h4>Power of Compounding</h4><p>Your returns generate further returns. The longer you stay invested, the more powerful this effect becomes.</p></div>
+        </div>
+        <div class="sip-benefit">
+          <div class="b-ico">🎯</div>
+          <div class="b-text"><h4>Goal-Based Planning</h4><p>Whether it's a home, education, or retirement — SIP helps you reach every financial milestone systematically.</p></div>
+        </div>
+      </div>
+      <div class="sip-calc-card">
+        <h3>SIP Returns Calculator</h3>
+        <div class="calc-group">
+          <label>Monthly SIP Amount <span id="lbl-sip">₹5,000</span></label>
+          <input type="range" id="sip-amt" min="500" max="100000" step="500" value="5000">
+        </div>
+        <div class="calc-group">
+          <label>Expected Return (p.a.) <span id="lbl-ret">12%</span></label>
+          <input type="range" id="sip-ret" min="6" max="30" step="0.5" value="12">
+        </div>
+        <div class="calc-group">
+          <label>Investment Period <span id="lbl-yr">10 Years</span></label>
+          <input type="range" id="sip-yr" min="1" max="40" step="1" value="10">
+        </div>
+        <div class="sip-result">
+          <div class="big" id="sip-total">—</div>
+          <div class="lbl">Estimated Corpus</div>
+          <div class="sip-breakdown">
+            <div class="item"><div class="val" id="sip-inv">—</div><div class="lbl2">Total Invested</div></div>
+            <div class="item"><div class="val" id="sip-gain">—</div><div class="lbl2">Est. Returns</div></div>
+          </div>
+        </div>
+        <canvas id="sipChart" height="90" style="margin-top:18px"></canvas>
+        <p style="text-align:center;font-size:11px;color:var(--slate);margin-top:10px">*Indicative. Mutual Fund investments are subject to market risks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADITYA BIRLA MONEY SECTION -->
+<section class="ab-section">
+  <div class="ab-inner">
+    <div>
+      <div class="section-tag" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);color:var(--pale)">Our Affiliation</div>
+      <h2 class="section-heading" style="color:white;margin-top:12px">Backed by the Strength of<br><em style="color:var(--gold-lt)">Aditya Birla Money Ltd.</em></h2>
+      <p style="color:rgba(255,255,255,0.65);font-size:14.5px;line-height:1.7;margin-top:12px">
+        As an authorised Sub-Broker of Aditya Birla Money Ltd., we bring you the power of one of India's most trusted financial services brands — combined with our local expertise, personal advisory, and genuine client-first approach.
+      </p>
+      <div class="ab-badges">
+        <div class="ab-badge"><div class="ab-ico">✅</div><div class="ab-text">SEBI Registered — Safe, Compliant & Regulated</div></div>
+        <div class="ab-badge"><div class="ab-ico">📱</div><div class="ab-text">Advanced Trading Platforms — Desktop & Mobile</div></div>
+        <div class="ab-badge"><div class="ab-ico">📊</div><div class="ab-text">Daily Research Reports & Market Insights</div></div>
+        <div class="ab-badge"><div class="ab-ico">🔍</div><div class="ab-text">No Hidden Charges — Transparent Brokerage</div></div>
+      </div>
+    </div>
+    <div class="product-strip">
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:16px;letter-spacing:0.04em">AVAILABLE PRODUCTS</div>
+      <div class="product-item">
+        <div class="p-ico">📈</div>
+        <div><div class="p-name">Equity Shares</div><div class="p-desc">BSE &amp; NSE listed stocks</div></div>
+        <div class="p-tag">Popular</div>
+      </div>
+      <div class="product-item">
+        <div class="p-ico">⚡</div>
+        <div><div class="p-name">Futures &amp; Options</div><div class="p-desc">Derivative instruments</div></div>
+        <div class="p-tag">Advanced</div>
+      </div>
+      <div class="product-item">
+        <div class="p-ico">💼</div>
+        <div><div class="p-name">Mutual Funds</div><div class="p-desc">All AMCs | SIP / Lump Sum</div></div>
+        <div class="p-tag">Popular</div>
+      </div>
+      <div class="product-item">
+        <div class="p-ico">🚀</div>
+        <div><div class="p-name">IPO Applications</div><div class="p-desc">ASBA / UPI based</div></div>
+        <div class="p-tag">New</div>
+      </div>
+      <div class="product-item">
+        <div class="p-ico">🪙</div>
+        <div><div class="p-name">Bonds &amp; NCD</div><div class="p-desc">Corporate &amp; Govt. bonds</div></div>
+        <div class="p-tag">Stable</div>
+      </div>
+      <div class="product-item">
+        <div class="p-ico">📑</div>
+        <div><div class="p-name">Portfolio Advisory</div><div class="p-desc">Personalised rebalancing</div></div>
+        <div class="p-tag">Premium</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to Start Investing?</h2>
+  <p>Open your investment account today with expert guidance at every step.</p>
+  <div class="cta-btns">
+    <a href="contact.html" class="btn-gold">📞 Book Free Advisory</a>
+    <a href="loans.html" class="btn-outline">Explore Loan Products</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="dfslogo.png" alt="DFS" onerror="this.style.display='none'">
+      <p>DHANSHRI FINANCIAL SOLUTION PVT. LTD. — Sub-Broker of Aditya Birla Money Ltd. SEBI Registered.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">© 2024 Dhanshri Financial Solutions. All Rights Reserved.</p>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul>
+      <li><a href="investment.html">Investments</a></li>
+      <li><a href="insurance.html">Insurance</a></li>
+      <li><a href="loans.html">Loans</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Investments</h4><ul>
+      <li><a href="investment.html">Stock Broking</a></li>
+      <li><a href="investment.html">Mutual Funds</a></li>
+      <li><a href="investment.html">IPO Services</a></li>
+      <li><a href="investment.html">F&amp;O Trading</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="#">Disclaimer</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>Investments are subject to market risks. Please read all scheme-related documents carefully.</span>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</footer>
+
+<script>
+/* TICKER */
+const marketData = {'NIFTY 50':{base:22450.50},'SENSEX':{base:73900.20},'BANKNIFTY':{base:48120.00},'NIFTY IT':{base:34780.00},'INDIA VIX':{base:14.25},'GOLD':{base:71850},'SILVER':{base:85400}};
+const liveData = {};
+Object.keys(marketData).forEach(k=>{const p=(Math.random()*3.2-1.6);liveData[k]={price:marketData[k].base*(1+p/100),pct:p};});
+function fmt(v,n){if(n==='INDIA VIX')return v.toFixed(2);if(n==='GOLD'||n==='SILVER')return '₹'+v.toLocaleString('en-IN',{maximumFractionDigits:0});return v.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function buildTicker(){const inner=document.getElementById('tickerInner');if(!inner)return;let h='';for(let i=0;i<2;i++)Object.keys(liveData).forEach(n=>{const d=liveData[n];const up=d.pct>=0;h+=`<div class="ticker-item"><div class="ticker-dot ${up?'up':'down'}"></div><span class="ticker-name">${n}</span><span class="ticker-price">${fmt(d.price,n)}</span><span class="ticker-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(d.pct).toFixed(2)}%</span></div>`;});inner.innerHTML=h;}
+buildTicker();
+setInterval(()=>{Object.keys(liveData).forEach(k=>{const t=(Math.random()*0.12-0.06);liveData[k].price*=(1+t/100);liveData[k].pct+=t*0.3;});buildTicker();},5000);
+
+/* SIP CALC */
+let sipChart=null;
+function calcSIP(){
+  const m=+document.getElementById('sip-amt').value;
+  const r=+document.getElementById('sip-ret').value/100/12;
+  const n=+document.getElementById('sip-yr').value*12;
+  document.getElementById('lbl-sip').textContent='₹'+m.toLocaleString('en-IN');
+  document.getElementById('lbl-ret').textContent=document.getElementById('sip-ret').value+'%';
+  document.getElementById('lbl-yr').textContent=document.getElementById('sip-yr').value+' Years';
+  const fv=m*((Math.pow(1+r,n)-1)/r)*(1+r);
+  const invested=m*n;
+  const gain=fv-invested;
+  document.getElementById('sip-total').textContent='₹'+Math.round(fv).toLocaleString('en-IN');
+  document.getElementById('sip-inv').textContent='₹'+Math.round(invested).toLocaleString('en-IN');
+  document.getElementById('sip-gain').textContent='₹'+Math.round(gain).toLocaleString('en-IN');
+  // Update doughnut
+  const ctx=document.getElementById('sipChart').getContext('2d');
+  if(sipChart){sipChart.destroy();}
+  sipChart=new Chart(ctx,{
+    type:'doughnut',
+    data:{
+      labels:['Invested','Returns'],
+      datasets:[{data:[Math.round(invested),Math.round(gain)],backgroundColor:['#BFDBFE','#2563EB'],borderWidth:0,hoverOffset:4}]
+    },
+    options:{
+      responsive:true,cutout:'65%',
+      plugins:{legend:{position:'right',labels:{font:{size:12},color:'#64748B',boxWidth:12}},tooltip:{callbacks:{label:c=>' ₹'+c.raw.toLocaleString('en-IN')}}}
+    }
+  });
+}
+['sip-amt','sip-ret','sip-yr'].forEach(id=>document.getElementById(id).addEventListener('input',calcSIP));
+calcSIP();
+</script>
+</body>
+</html>
