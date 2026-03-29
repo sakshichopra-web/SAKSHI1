@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Services — Dhanshri Financial Solutions</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Loan hero extra */
+    .loan-hero-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px; }
+    .lhs { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:18px; text-align:center; }
+    .lhs .n { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:700; color:var(--gold-lt); }
+    .lhs .l { font-size:11.5px; color:rgba(255,255,255,0.55); margin-top:3px; }
+
+    /* EMI section */
+    .emi-section { background: var(--mist); }
+    .emi-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+    .emi-card {
+      background:white;
+      border:1px solid var(--pale);
+      border-radius:var(--radius-lg);
+      padding:40px;
+      box-shadow:var(--shadow);
+    }
+    .emi-card h3 { font-size:1.5rem; text-align:center; color:var(--navy); margin-bottom:28px; }
+    .emi-tabs { display:flex; gap:6px; margin-bottom:24px; background:var(--frost); border-radius:999px; padding:4px; }
+    .emi-tab-btn {
+      flex:1; padding:8px; border-radius:999px; font-size:12.5px; font-weight:600;
+      cursor:pointer; border:none; background:transparent; color:var(--slate); transition:all 0.2s;
+    }
+    .emi-tab-btn.active { background:var(--mid); color:white; box-shadow:0 2px 8px rgba(37,99,235,0.25); }
+    .loan-result-card {
+      background:linear-gradient(135deg,var(--navy),var(--blue));
+      border-radius:14px; padding:24px; text-align:center; margin-top:20px;
+    }
+    .loan-result-card .emi-num {
+      font-family:'Cormorant Garamond',serif; font-size:3rem; font-weight:700; color:var(--gold-lt);
+    }
+    .loan-result-card .emi-lbl { font-size:13px; color:rgba(255,255,255,0.55); }
+    .loan-result-card .breakdown { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:16px; }
+    .loan-result-card .b-item .v { font-size:15px; font-weight:600; color:white; }
+    .loan-result-card .b-item .l { font-size:10.5px; color:rgba(255,255,255,0.45); }
+
+    /* Loan products */
+    .loan-products { background:var(--white); }
+
+    /* Why us points */
+    .why-list { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px; }
+    .why-point {
+      display:flex; gap:12px; align-items:flex-start;
+      background:var(--frost); border:1px solid var(--pale); border-radius:12px; padding:16px;
+    }
+    .why-point .ico { font-size:20px; flex-shrink:0; }
+    .why-point h4 { font-size:13.5px; font-weight:600; color:var(--navy); margin-bottom:3px; }
+    .why-point p { font-size:12.5px; color:var(--slate); line-height:1.5; }
+
+    /* Partners section */
+    .loan-partners { background:linear-gradient(135deg,var(--navy),var(--blue)); padding:70px 5%; }
+    .lp-inner { max-width:900px; margin:0 auto; }
+    .lp-cols { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:40px; }
+    .lp-col h4 { font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:var(--pale); margin-bottom:16px; font-family:'DM Sans',sans-serif; }
+    .lp-pills { display:flex; flex-wrap:wrap; gap:8px; }
+    .lp-pill {
+      background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12);
+      border-radius:999px; padding:5px 14px; font-size:12px; font-weight:500; color:rgba(255,255,255,0.75);
+      transition:all 0.2s;
+    }
+    .lp-pill:hover { background:rgba(255,255,255,0.15); }
+
+    @media(max-width:900px){
+      .emi-grid{grid-template-columns:1fr;}
+      .loan-hero-stats{grid-template-columns:1fr 1fr;}
+      .lp-cols{grid-template-columns:1fr;}
+    }
+    @media(max-width:600px){
+      .loan-grid{grid-template-columns:1fr;}
+      .why-list{grid-template-columns:1fr;}
+      .loan-hero-stats{grid-template-columns:1fr 1fr;}
+      .loan-result-card .breakdown{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-bar"><div class="ticker-inner" id="tickerInner"></div></div>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <img src="dfslogo.png" alt="DFS" onerror="this.style.display='none'">
+    <div class="brand-text">
+      <div class="name">DHANSHRI FINANCIAL</div>
+      <div class="sub">A Hub of All Financial Services</div>
+    </div>
+  </div>
+  <ul class="navbar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="investment.html">Investments</a></li>
+    <li><a href="insurance.html">Insurance</a></li>
+    <li><a href="loans.html" class="active">Loans</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html" class="navbar-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero" style="padding-bottom:100px">
+  <div class="page-hero-inner" style="max-width:800px">
+    <div class="page-hero-tag">🏦 Loan Distribution Partner · 250+ Banks &amp; NBFCs</div>
+    <h1>"Your Dreams Are Valid.<br><em style="font-style:italic;color:var(--gold-lt)">We Make Them Possible."</em></h1>
+    <p>Quick, easy, and hassle-free loans at the best interest rates — Home, Personal, Business, Vehicle &amp; Education Loans. Free advisory, fastest disbursement.</p>
+    <div class="loan-hero-stats">
+      <div class="lhs"><div class="n">250+</div><div class="l">Banking Partners</div></div>
+      <div class="lhs"><div class="n">Free</div><div class="l">Loan Advisory</div></div>
+      <div class="lhs"><div class="n">Fastest</div><div class="l">Disbursement</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOAN PRODUCTS -->
+<section class="section loan-products">
+  <div class="section-inner">
+    <div class="section-tag">Loan Products</div>
+    <h2 class="section-heading">Loan Solutions for Every Need</h2>
+    <p class="section-sub">From dream homes to business growth — we connect you with the right lender at the right rate.</p>
+    <div class="loan-grid">
+      <div class="loan-card fade-up">
+        <div class="icon">🏠</div>
+        <h3>Home Loan</h3>
+        <p>Make your dream home a reality. Purchase, construct, renovate, or extend at competitive rates with flexible repayment options.</p>
+        <ul class="loan-features">
+          <li>Tenure up to 30 years</li>
+          <li>For salaried &amp; self-employed</li>
+          <li>Balance transfer available</li>
+          <li>New &amp; resale properties</li>
+        </ul>
+      </div>
+      <div class="loan-card fade-up">
+        <div class="icon">🏗️</div>
+        <h3>Loan Against Property</h3>
+        <p>Unlock the value of your property. Get funds for business expansion, education, medical needs, or any major expense.</p>
+        <ul class="loan-features">
+          <li>Residential &amp; commercial</li>
+          <li>Up to 70% of property value</li>
+          <li>Flexible tenure</li>
+          <li>Overdraft facility</li>
+        </ul>
+      </div>
+      <div class="loan-card fade-up">
+        <div class="icon">💼</div>
+        <h3>Business &amp; MSME Loan</h3>
+        <p>Fuel your business growth. Working capital, machinery purchase, expansion — all covered with fastest disbursement.</p>
+        <ul class="loan-features">
+          <li>For MSMEs &amp; startups</li>
+          <li>Unsecured options available</li>
+          <li>Traders &amp; manufacturers</li>
+          <li>Professionals (CA, Dr, Arch)</li>
+        </ul>
+      </div>
+      <div class="loan-card fade-up">
+        <div class="icon">👤</div>
+        <h3>Personal Loan</h3>
+        <p>Instant funds for medical emergencies, weddings, travel, home renovation, or any personal need — no collateral required.</p>
+        <ul class="loan-features">
+          <li>No collateral needed</li>
+          <li>Fast disbursal</li>
+          <li>Flexible tenure</li>
+          <li>Minimal documentation</li>
+        </ul>
+      </div>
+      <div class="loan-card fade-up">
+        <div class="icon">🚗</div>
+        <h3>Vehicle Loan</h3>
+        <p>Drive your dream vehicle today. New and used car loans with easy EMIs, competitive rates and quick approvals.</p>
+        <ul class="loan-features">
+          <li>Up to 90% on-road finance</li>
+          <li>New &amp; used cars</li>
+          <li>Tenure up to 7 years</li>
+          <li>Two-wheelers too</li>
+        </ul>
+      </div>
+      <div class="loan-card fade-up">
+        <div class="icon">🎓</div>
+        <h3>Education Loan</h3>
+        <p>Invest in the brightest future — your child's education. India &amp; abroad, with moratorium period and tax benefits.</p>
+        <ul class="loan-features">
+          <li>India &amp; international</li>
+          <li>Moratorium period</li>
+          <li>Section 80E tax benefit</li>
+          <li>Engineering, Medical, MBA</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section" style="background:var(--frost);border-top:1px solid var(--pale);border-bottom:1px solid var(--pale)">
+  <div class="section-inner">
+    <div class="section-tag">Why Us</div>
+    <h2 class="section-heading">Why Choose Dhanshri for Your Loan?</h2>
+    <div class="why-list">
+      <div class="why-point"><div class="ico">🏦</div><div><h4>Multiple Lender Options</h4><p>We work with 250+ leading banks and NBFCs to find you the absolute best deal.</p></div></div>
+      <div class="why-point"><div class="ico">💰</div><div><h4>Lowest Interest Rates</h4><p>We compare and negotiate on your behalf — getting you the most competitive rate.</p></div></div>
+      <div class="why-point"><div class="ico">📋</div><div><h4>Minimal Documentation</h4><p>We guide you on exactly what's needed — no unnecessary paperwork or confusion.</p></div></div>
+      <div class="why-point"><div class="ico">⚡</div><div><h4>Fast Processing</h4><p>Time is money. Our expertise ensures the fastest approvals and disbursements.</p></div></div>
+      <div class="why-point"><div class="ico">🤝</div><div><h4>Free Advisory</h4><p>Our loan counselling and guidance service is absolutely free of cost — always.</p></div></div>
+      <div class="why-point"><div class="ico">🔄</div><div><h4>Balance Transfer</h4><p>Already have a loan at a high rate? We transfer it to a better rate easily.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EMI CALCULATOR -->
+<section class="section emi-section">
+  <div class="section-inner">
+    <div class="emi-grid">
+      <div>
+        <div class="section-tag">EMI Calculator</div>
+        <h2 class="section-heading">Know Your EMI<br>Before You Apply</h2>
+        <p class="section-sub" style="margin-bottom:24px">Use our EMI Calculator to instantly know your monthly repayment. Enter the loan amount, interest rate, and tenure — get your EMI in seconds.</p>
+        <div style="background:white;border:1px solid var(--pale);border-radius:var(--radius-lg);padding:28px">
+          <canvas id="emiChart" height="200"></canvas>
+          <div style="display:flex;justify-content:center;gap:24px;margin-top:12px;font-size:12px;color:var(--slate)">
+            <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:#2563EB;border-radius:3px;display:inline-block"></span> Principal</span>
+            <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:#BFDBFE;border-radius:3px;display:inline-block"></span> Interest</span>
+          </div>
+        </div>
+      </div>
+      <div class="emi-card">
+        <h3>🏦 EMI Calculator</h3>
+        <div class="emi-tabs">
+          <button class="emi-tab-btn active" onclick="setLoanType('home',this)">Home</button>
+          <button class="emi-tab-btn" onclick="setLoanType('personal',this)">Personal</button>
+          <button class="emi-tab-btn" onclick="setLoanType('business',this)">Business</button>
+          <button class="emi-tab-btn" onclick="setLoanType('vehicle',this)">Vehicle</button>
+        </div>
+        <div class="calc-group">
+          <label>Loan Amount <span id="lbl-amt">₹30,00,000</span></label>
+          <input type="range" id="loan-amt" min="100000" max="10000000" step="50000" value="3000000">
+        </div>
+        <div class="calc-group">
+          <label>Interest Rate (p.a.) <span id="lbl-rate">8.5%</span></label>
+          <input type="range" id="loan-rate" min="6" max="24" step="0.1" value="8.5">
+        </div>
+        <div class="calc-group">
+          <label>Loan Tenure <span id="lbl-ten">20 Years</span></label>
+          <input type="range" id="loan-ten" min="1" max="30" step="1" value="20">
+        </div>
+        <div class="loan-result-card">
+          <div class="emi-num" id="emi-val">—</div>
+          <div class="emi-lbl">Monthly EMI</div>
+          <div class="breakdown">
+            <div class="b-item"><div class="v" id="emi-total">—</div><div class="l">Total Payment</div></div>
+            <div class="b-item"><div class="v" id="emi-interest">—</div><div class="l">Total Interest</div></div>
+            <div class="b-item"><div class="v" id="emi-principal">—</div><div class="l">Principal</div></div>
+          </div>
+        </div>
+        <a href="contact.html" style="display:block;text-align:center;margin-top:18px" class="btn-primary">Apply for This Loan →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LENDING PARTNERS -->
+<section class="loan-partners">
+  <div class="lp-inner">
+    <div style="text-align:center">
+      <div class="section-tag" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);color:var(--pale)">Our Network</div>
+      <h2 class="section-heading" style="color:white;margin-top:12px">250+ Banking &amp; NBFC Partners</h2>
+      <p style="color:rgba(255,255,255,0.55);font-size:14.5px;margin-top:8px">We compare across all our partners to find you the best rate and terms.</p>
+    </div>
+    <div class="lp-cols">
+      <div>
+        <h4>Banks</h4>
+        <div class="lp-pills">
+          <span class="lp-pill">SBI</span>
+          <span class="lp-pill">HDFC Bank</span>
+          <span class="lp-pill">ICICI Bank</span>
+          <span class="lp-pill">Axis Bank</span>
+          <span class="lp-pill">Kotak Mahindra</span>
+          <span class="lp-pill">Bank of Baroda</span>
+          <span class="lp-pill">PNB</span>
+          <span class="lp-pill">Union Bank</span>
+          <span class="lp-pill">IndusInd Bank</span>
+          <span class="lp-pill">Yes Bank</span>
+          <span class="lp-pill">Federal Bank</span>
+          <span class="lp-pill">+20 more</span>
+        </div>
+      </div>
+      <div>
+        <h4>NBFCs &amp; HFCs</h4>
+        <div class="lp-pills">
+          <span class="lp-pill">Bajaj Finserv</span>
+          <span class="lp-pill">Tata Capital</span>
+          <span class="lp-pill">L&amp;T Finance</span>
+          <span class="lp-pill">Aditya Birla Finance</span>
+          <span class="lp-pill">HDB Financial</span>
+          <span class="lp-pill">Shriram Finance</span>
+          <span class="lp-pill">Muthoot Finance</span>
+          <span class="lp-pill">Piramal Finance</span>
+          <span class="lp-pill">IIFL Finance</span>
+          <span class="lp-pill">PNB Housing</span>
+          <span class="lp-pill">LIC Housing</span>
+          <span class="lp-pill">+30 more</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to Apply for Your Loan?</h2>
+  <p>Talk to our loan expert today — free of cost. Fast, easy, and transparent.</p>
+  <div class="cta-btns">
+    <a href="contact.html" class="btn-gold">📞 Talk to Loan Expert</a>
+    <a href="insurance.html" class="btn-outline">Explore Insurance</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="dfslogo.png" alt="DFS" onerror="this.style.display='none'">
+      <p>DHANSHRI FINANCIAL SOLUTION PVT. LTD. — Authorised Loan Distribution Partner. Associated with 250+ Banks &amp; NBFCs.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">© 2024 Dhanshri Financial Solutions. All Rights Reserved.</p>
+    </div>
+    <div class="footer-col"><h4>Loans</h4><ul>
+      <li><a href="loans.html">Home Loan</a></li>
+      <li><a href="loans.html">Business Loan</a></li>
+      <li><a href="loans.html">Personal Loan</a></li>
+      <li><a href="loans.html">Vehicle Loan</a></li>
+      <li><a href="loans.html">Education Loan</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Services</h4><ul>
+      <li><a href="investment.html">Investments</a></li>
+      <li><a href="insurance.html">Insurance</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="#">Disclaimer</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>Loan approval is subject to lender's terms and conditions. We are a facilitator, not a lender.</span>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</footer>
+
+<script>
+/* TICKER */
+const marketData={'NIFTY 50':{base:22450.50},'SENSEX':{base:73900.20},'BANKNIFTY':{base:48120.00},'NIFTY IT':{base:34780.00},'INDIA VIX':{base:14.25},'GOLD':{base:71850},'SILVER':{base:85400}};
+const liveData={};
+Object.keys(marketData).forEach(k=>{const p=(Math.random()*3.2-1.6);liveData[k]={price:marketData[k].base*(1+p/100),pct:p};});
+function fmt(v,n){if(n==='INDIA VIX')return v.toFixed(2);if(n==='GOLD'||n==='SILVER')return'₹'+v.toLocaleString('en-IN',{maximumFractionDigits:0});return v.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function buildTicker(){const inner=document.getElementById('tickerInner');if(!inner)return;let h='';for(let i=0;i<2;i++)Object.keys(liveData).forEach(n=>{const d=liveData[n];const up=d.pct>=0;h+=`<div class="ticker-item"><div class="ticker-dot ${up?'up':'down'}"></div><span class="ticker-name">${n}</span><span class="ticker-price">${fmt(d.price,n)}</span><span class="ticker-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(d.pct).toFixed(2)}%</span></div>`;});inner.innerHTML=h;}
+buildTicker();
+setInterval(()=>{Object.keys(liveData).forEach(k=>{const t=(Math.random()*0.12-0.06);liveData[k].price*=(1+t/100);liveData[k].pct+=t*0.3;});buildTicker();},5000);
+
+/* LOAN TYPE PRESETS */
+const presets={home:{amt:3000000,rate:8.5,ten:20},personal:{amt:500000,rate:14,ten:5},business:{amt:2000000,rate:11,ten:10},vehicle:{amt:800000,rate:9,ten:7}};
+function setLoanType(type,btn){
+  document.querySelectorAll('.emi-tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const p=presets[type];
+  document.getElementById('loan-amt').value=p.amt;
+  document.getElementById('loan-rate').value=p.rate;
+  document.getElementById('loan-ten').value=p.ten;
+  calcEMI();
+}
+
+let emiDoughnut=null;
+function calcEMI(){
+  const P=+document.getElementById('loan-amt').value;
+  const r=+document.getElementById('loan-rate').value/100/12;
+  const n=+document.getElementById('loan-ten').value*12;
+  document.getElementById('lbl-amt').textContent='₹'+P.toLocaleString('en-IN');
+  document.getElementById('lbl-rate').textContent=document.getElementById('loan-rate').value+'%';
+  document.getElementById('lbl-ten').textContent=document.getElementById('loan-ten').value+' Years';
+  const emi=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  const total=emi*n;
+  const interest=total-P;
+  document.getElementById('emi-val').textContent='₹'+Math.round(emi).toLocaleString('en-IN');
+  document.getElementById('emi-total').textContent='₹'+Math.round(total).toLocaleString('en-IN');
+  document.getElementById('emi-interest').textContent='₹'+Math.round(interest).toLocaleString('en-IN');
+  document.getElementById('emi-principal').textContent='₹'+P.toLocaleString('en-IN');
+  // Doughnut
+  const ctx=document.getElementById('emiChart').getContext('2d');
+  if(emiDoughnut)emiDoughnut.destroy();
+  emiDoughnut=new Chart(ctx,{
+    type:'doughnut',
+    data:{labels:['Principal','Interest'],datasets:[{data:[Math.round(P),Math.round(interest)],backgroundColor:['#2563EB','#BFDBFE'],borderWidth:0,hoverOffset:6}]},
+    options:{responsive:true,cutout:'70%',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' ₹'+c.raw.toLocaleString('en-IN')}}}}
+  });
+}
+['loan-amt','loan-rate','loan-ten'].forEach(id=>document.getElementById(id).addEventListener('input',calcEMI));
+calcEMI();
+</script>
+</body>
+</html>
