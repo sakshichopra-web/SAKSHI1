@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Dhanshri Financial Solutions</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Mission-vision */
+    .mv-section { background:var(--mist); padding:70px 5%; }
+    .mv-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; }
+    .mv-card {
+      background:white; border:1px solid var(--pale); border-radius:var(--radius-lg); padding:32px;
+      text-align:center; transition:all 0.3s;
+    }
+    .mv-card:hover { box-shadow:var(--shadow-lg); transform:translateY(-4px); }
+    .mv-icon { font-size:36px; margin-bottom:14px; display:block; }
+    .mv-card h3 { font-size:1.2rem; color:var(--navy); margin-bottom:10px; }
+    .mv-card p { font-size:13.5px; color:var(--slate); line-height:1.65; }
+
+    /* Values */
+    .values-section { background:white; padding:80px 5%; }
+    .values-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:40px; }
+    .value-card {
+      background:linear-gradient(135deg,var(--frost),white);
+      border:1px solid var(--pale); border-radius:16px; padding:24px;
+      text-align:center; transition:all 0.3s;
+    }
+    .value-card:hover { box-shadow:var(--shadow); transform:translateY(-2px); }
+    .value-icon { font-size:30px; margin-bottom:12px; }
+    .value-card h4 { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+    .value-card p { font-size:12.5px; color:var(--slate); line-height:1.55; }
+
+    /* Journey */
+    .journey-section { background:linear-gradient(135deg,var(--navy),var(--blue)); padding:80px 5%; }
+    .journey-inner { max-width:900px; margin:0 auto; }
+    .milestones { position:relative; margin-top:40px; }
+    .milestones::before {
+      content:''; position:absolute; left:50%; top:0; bottom:0; width:2px;
+      background:rgba(255,255,255,0.15); transform:translateX(-50%);
+    }
+    .milestone {
+      display:flex; gap:24px; align-items:flex-start; margin-bottom:36px;
+      position:relative;
+    }
+    .milestone:nth-child(odd) { flex-direction:row-reverse; text-align:right; }
+    .milestone-content {
+      flex:1; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1);
+      border-radius:14px; padding:20px 22px;
+    }
+    .milestone-content .year { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-lt); font-weight:600; margin-bottom:4px; }
+    .milestone-content h4 { font-size:15px; font-weight:600; color:white; margin-bottom:6px; }
+    .milestone-content p { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.5; }
+    .milestone-dot {
+      position:absolute; left:50%; transform:translateX(-50%);
+      width:14px; height:14px; background:var(--gold); border-radius:50%;
+      border:3px solid var(--navy); margin-top:22px; flex-shrink:0; z-index:1;
+    }
+
+    /* Services graph */
+    .services-chart-section { background:var(--mist); padding:70px 5%; }
+    .chart-services-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+    .services-list { margin-top:24px; }
+    .svc-item {
+      display:flex; align-items:center; gap:12px; padding:12px 0;
+      border-bottom:1px solid var(--pale);
+    }
+    .svc-item:last-child{border:none;}
+    .svc-item .s-ico { font-size:18px; width:32px; }
+    .svc-item .s-name { font-size:14px; font-weight:600; color:var(--navy); flex:1; }
+    .svc-item .s-year { font-size:11.5px; color:var(--slate); }
+
+    @media(max-width:900px){
+      .mv-grid{grid-template-columns:1fr;}
+      .values-grid{grid-template-columns:1fr 1fr;}
+      .chart-services-grid{grid-template-columns:1fr;}
+      .milestones::before{left:20px;}
+      .milestone{flex-direction:column!important;text-align:left!important;padding-left:48px;}
+      .milestone-dot{left:20px;margin-top:0;top:20px;}
+    }
+    @media(max-width:600px){
+      .values-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-bar"><div class="ticker-inner" id="tickerInner"></div></div>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <img src="dfslogo.png" alt="DFS" onerror="this.style.display='none'">
+    <div class="brand-text">
+      <div class="name">DHANSHRI FINANCIAL</div>
+      <div class="sub">A Hub of All Financial Services</div>
+    </div>
+  </div>
+  <ul class="navbar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="investment.html">Investments</a></li>
+    <li><a href="insurance.html">Insurance</a></li>
+    <li><a href="loans.html">Loans</a></li>
+    <li><a href="about.html" class="active">About Us</a></li>
+    <li><a href="contact.html" class="navbar-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-tag">🏛️ About Us · 30+ Years of Excellence</div>
+    <h1>Who We Are</h1>
+    <p>DHANSHRI FINANCIAL SOLUTION PVT. LTD. is a full-spectrum financial services company dedicated to helping you grow, protect, and manage your wealth — with a deep-rooted presence in the financial ecosystem and trust built over three decades.</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">30+</div><div class="stat-label">Years of Experience</div></div>
+    <div class="stat-item"><div class="stat-num">5,000+</div><div class="stat-label">Families Served</div></div>
+    <div class="stat-item"><div class="stat-num">₹100Cr+</div><div class="stat-label">Coverage Managed</div></div>
+    <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Core Service Areas</div></div>
+  </div>
+</div>
+
+<!-- ABOUT STORY -->
+<section class="section">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <div class="section-tag">Our Story</div>
+        <h2 class="section-heading">A Reliable Name Built on<br>Three Decades of Trust</h2>
+        <p style="font-size:15px;color:var(--slate);line-height:1.75;margin:14px 0 18px">
+          We believe that every rupee you earn deserves the right direction. Whether you are a first-time investor, a business owner seeking loans, or someone looking to safeguard your family's tomorrow — we are here with the right solutions, the right guidance, and the right people.
+        </p>
+        <p style="font-size:15px;color:var(--slate);line-height:1.75;margin-bottom:28px">
+          As an Authorised Sub-Broker of <strong>Aditya Birla Money Ltd.</strong> and an authorised Loan Distribution Partner associated with 250+ banks and NBFCs, we bridge the gap between complex financial markets and the everyday Indian investor.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div style="background:var(--frost);border:1px solid var(--pale);border-radius:12px;padding:18px;text-align:center">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--mid)">SEBI</div>
+            <div style="font-size:12px;color:var(--slate);margin-top:3px">Registered</div>
+          </div>
+          <div style="background:var(--frost);border:1px solid var(--pale);border-radius:12px;padding:18px;text-align:center">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--mid)">IRDAI</div>
+            <div style="font-size:12px;color:var(--slate);margin-top:3px">Compliant</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div style="font-size:40px;margin-bottom:16px">🏛️</div>
+        <h3 style="font-size:1.5rem;color:var(--navy);margin-bottom:16px">Our Affiliation</h3>
+        <p style="font-size:14px;color:var(--slate);line-height:1.65;margin-bottom:24px">
+          Dhanshri Financial Solutions is proudly affiliated with <strong>Aditya Birla Money Ltd.</strong> — one of India's most trusted and respected financial services brands. This affiliation provides our clients access to world-class research, advanced trading platforms, and a full suite of investment products.
+        </p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h4>Investment Services</h4>
+              <p>Sub-broker of Aditya Birla Money Ltd. — Stocks, MF, IPO, F&O, Bonds.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h4>Insurance Advisory</h4>
+              <p>Life, Health, Motor and General Insurance from India's top insurers.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h4>Loan Distribution</h4>
+              <p>Partner with 250+ banks and NBFCs for all loan needs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION VISION VALUES -->
+<section class="mv-section">
+  <div style="max-width:1100px;margin:0 auto;text-align:center;margin-bottom:40px">
+    <div class="section-tag">Our Foundation</div>
+    <h2 class="section-heading">Mission, Vision &amp; Purpose</h2>
+  </div>
+  <div class="mv-grid">
+    <div class="mv-card fade-up">
+      <span class="mv-icon">🎯</span>
+      <h3>Our Mission</h3>
+      <p>To make professional financial guidance accessible to every Indian — by offering personalised, transparent, and ethical advisory across investments, insurance, and loans under one trusted roof.</p>
+    </div>
+    <div class="mv-card fade-up">
+      <span class="mv-icon">🌟</span>
+      <h3>Our Vision</h3>
+      <p>To become India's most trusted one-stop financial solutions destination — empowering every individual and family to achieve financial independence, security, and lasting wealth.</p>
+    </div>
+    <div class="mv-card fade-up">
+      <span class="mv-icon">❤️</span>
+      <h3>Our Purpose</h3>
+      <p>We believe every rupee you earn deserves the right direction. We are here to ensure your hard-earned money works as hard as you do — growing, protecting, and multiplying through every life stage.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+  <div class="section-inner">
+    <div class="section-tag">Our Values</div>
+    <h2 class="section-heading">The Principles That Guide Us</h2>
+    <div class="values-grid">
+      <div class="value-card fade-up">
+        <div class="value-icon">🔒</div>
+        <h4>Transparency</h4>
+        <p>Full transparency in fees, commissions, and recommendations. You always know what you're getting into and why.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">🤝</div>
+        <h4>Integrity</h4>
+        <p>We operate with the highest ethical standards. Trust is not built overnight — it's earned through every interaction.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">👤</div>
+        <h4>Client-First</h4>
+        <p>We don't sell products. We build relationships. Your satisfaction and financial wellbeing are our performance metrics.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">📚</div>
+        <h4>Expertise</h4>
+        <p>30+ years of navigating bull markets, bear markets, and economic cycles. Experience is not just a number — it's our foundation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES PORTFOLIO CHART -->
+<section class="services-chart-section">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="chart-services-grid">
+      <div>
+        <div class="section-tag">Our Portfolio</div>
+        <h2 class="section-heading">Comprehensive Financial Services</h2>
+        <p style="font-size:14.5px;color:var(--slate);line-height:1.7;margin:12px 0 20px">
+          From your first investment to your retirement plan, from your child's education loan to your family's insurance coverage — Dhanshri Financial is your partner at every financial milestone.
+        </p>
+        <div class="services-list">
+          <div class="svc-item"><div class="s-ico">📈</div><div class="s-name">Stock Broking &amp; Trading</div><div class="s-year">BSE + NSE</div></div>
+          <div class="svc-item"><div class="s-ico">💼</div><div class="s-name">Mutual Fund Distribution</div><div class="s-year">All AMCs</div></div>
+          <div class="svc-item"><div class="s-ico">🚀</div><div class="s-name">IPO &amp; New Fund Offers</div><div class="s-year">ASBA/UPI</div></div>
+          <div class="svc-item"><div class="s-ico">🛡️</div><div class="s-name">Life &amp; Health Insurance</div><div class="s-year">All Insurers</div></div>
+          <div class="svc-item"><div class="s-ico">🏦</div><div class="s-name">Loan Distribution</div><div class="s-year">250+ Partners</div></div>
+          <div class="svc-item"><div class="s-ico">🪙</div><div class="s-name">Bonds &amp; Fixed Income</div><div class="s-year">Govt. &amp; Corp.</div></div>
+        </div>
+      </div>
+      <div>
+        <canvas id="servicesMix" height="240"></canvas>
+        <p style="text-align:center;font-size:11.5px;color:var(--slate);margin-top:12px">Revenue Mix (Indicative)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY / MILESTONES -->
+<section class="journey-section">
+  <div class="journey-inner">
+    <div style="text-align:center">
+      <div class="section-tag" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);color:var(--pale)">Our Journey</div>
+      <h2 class="section-heading" style="color:white;margin-top:12px">Three Decades of Growth</h2>
+    </div>
+    <div class="milestones">
+      <div class="milestone"><div class="milestone-dot"></div>
+        <div class="milestone-content"><div class="year">1990s</div><h4>Founded</h4><p>Dhanshri Financial Solutions was established with a vision to democratise financial services in Gujarat.</p></div>
+        <div style="flex:1"></div>
+      </div>
+      <div class="milestone"><div class="milestone-dot"></div>
+        <div style="flex:1"></div>
+        <div class="milestone-content"><div class="year">2000s</div><h4>Expansion into Insurance</h4><p>Added life and health insurance advisory, protecting thousands of families across Gujarat.</p></div>
+      </div>
+      <div class="milestone"><div class="milestone-dot"></div>
+        <div class="milestone-content"><div class="year">2010s</div><h4>Sub-Broker Partnership</h4><p>Became an authorised Sub-Broker of Aditya Birla Money Ltd., expanding equity and MF services.</p></div>
+        <div style="flex:1"></div>
+      </div>
+      <div class="milestone"><div class="milestone-dot"></div>
+        <div style="flex:1"></div>
+        <div class="milestone-content"><div class="year">2020s</div><h4>Full-Spectrum Services</h4><p>Launched comprehensive loan distribution, digital platforms, and 250+ banking partnerships. 5,000+ families served.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Let's Build Your Financial Future Together</h2>
+  <p>Join thousands of families who trust Dhanshri Financial for their complete financial journey.</p>
+  <div class="cta-btns">
+    <a href="contact.html" class="btn-gold">📞 Book Free Consultation</a>
+    <a href="investment.html" class="btn-outline">Start Investing Today</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="dfslogo.png" alt="DFS" onerror="this.style.display='none'">
+      <p>DHANSHRI FINANCIAL SOLUTION PVT. LTD.<br>A Hub of All Financial Services. Sub-Broker of Aditya Birla Money Ltd. SEBI Registered.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35)">© 2024 Dhanshri Financial Solutions. All Rights Reserved.</p>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul>
+      <li><a href="investment.html">Investments</a></li>
+      <li><a href="insurance.html">Insurance</a></li>
+      <li><a href="loans.html">Loans</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Company</h4><ul>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Compliance</h4><ul>
+      <li><a href="#">SEBI Registration</a></li>
+      <li><a href="#">IRDAI Compliance</a></li>
+      <li><a href="#">Disclaimer</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>Mutual Fund investments are subject to market risks. Insurance is subject to policy terms. Loans subject to lender approval.</span>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</footer>
+
+<script>
+/* TICKER */
+const marketData={'NIFTY 50':{base:22450.50},'SENSEX':{base:73900.20},'BANKNIFTY':{base:48120.00},'NIFTY IT':{base:34780.00},'INDIA VIX':{base:14.25},'GOLD':{base:71850},'SILVER':{base:85400}};
+const liveData={};
+Object.keys(marketData).forEach(k=>{const p=(Math.random()*3.2-1.6);liveData[k]={price:marketData[k].base*(1+p/100),pct:p};});
+function fmt(v,n){if(n==='INDIA VIX')return v.toFixed(2);if(n==='GOLD'||n==='SILVER')return'₹'+v.toLocaleString('en-IN',{maximumFractionDigits:0});return v.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function buildTicker(){const inner=document.getElementById('tickerInner');if(!inner)return;let h='';for(let i=0;i<2;i++)Object.keys(liveData).forEach(n=>{const d=liveData[n];const up=d.pct>=0;h+=`<div class="ticker-item"><div class="ticker-dot ${up?'up':'down'}"></div><span class="ticker-name">${n}</span><span class="ticker-price">${fmt(d.price,n)}</span><span class="ticker-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(d.pct).toFixed(2)}%</span></div>`;});inner.innerHTML=h;}
+buildTicker();
+setInterval(()=>{Object.keys(liveData).forEach(k=>{const t=(Math.random()*0.12-0.06);liveData[k].price*=(1+t/100);liveData[k].pct+=t*0.3;});buildTicker();},5000);
+
+/* Services Mix Chart */
+new Chart(document.getElementById('servicesMix'),{
+  type:'polarArea',
+  data:{
+    labels:['Stock Broking','Mutual Funds','Insurance','Loans','IPO/Bonds'],
+    datasets:[{
+      data:[28,22,20,22,8],
+      backgroundColor:['rgba(37,99,235,0.8)','rgba(59,130,246,0.7)','rgba(99,169,255,0.6)','rgba(147,197,253,0.75)','rgba(219,234,254,0.9)'],
+      borderWidth:0
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      legend:{position:'right',labels:{font:{size:11},color:'#64748B',boxWidth:10}},
+      tooltip:{callbacks:{label:c=>c.label+': '+c.raw+'%'}}
+    },
+    scales:{r:{ticks:{display:false},grid:{color:'rgba(37,99,235,0.06)'}}}
+  }
+});
+</script>
+</body>
+</html>
